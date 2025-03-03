@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SwiperJS Example</title>
+    <title>PlayGround</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   </head>
   <body>
-    <div class="playground-frame">
+    <div class="playground-mobile-frame">
       <div class="swiper-container">
         <div class="swiper-wrapper" id="book">
           <!-- 이미지 위치 -->
@@ -29,7 +29,6 @@
           loop: false,
           pagination: {
             el: ".swiper-pagination",
-            type: "bullets",
           },
           on: {
             slideChange: function () {
@@ -69,7 +68,7 @@
       height: 100vh;
       background-color: #f0f0f0;
     }
-    playground-frame {
+    .playground-mobile-frame {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -95,8 +94,7 @@
     .pageNumber {
       text-align: center;
       margin-top: 10px;
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 15px;
     }
   </style>
 </html>

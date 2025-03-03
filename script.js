@@ -1,46 +1,57 @@
+// pc frame
 $(document).ready(function () {
-  console.log("페이지 로드 완료!"); // 디버깅용 로그 추가
+  let totalPages = 62;
+  let book = $("#book");
+  let pageAspectRatio = 1.4841; // 세로:가로 비율
+  let bookWidth = window.innerHeight * 0.55 * 2;
+  let bookHeight = (bookWidth * pageAspectRatio) / 2;
 
-  // converted.html 로드
-  $("#flipbook").load("/images/page1.png", function (response, status, xhr) {
-    if (status === "error") {
-      console.log(
-        "/images/page1.png을 불러오는 데 실패했습니다: " +
-          xhr.status +
-          " " +
-          xhr.statusText
-      );
-      return;
-    }
+  for (let i = 0; i <= totalPages; i++) {
+    book.append(
+      `<div class="page" style="background-image: url('./images/page${i}.png');"></div>`
+    );
+  }
 
-    console.log("converted.html 로드 성공!");
-
-    // turn.js 적용 (converted.html이 로드된 후 실행)
-    $("#flipbook").turn({
-      width: 600,
-      height: 400,
-      autoCenter: true,
-    });
+  $("#book").turn({
+    width: bookWidth,
+    height: bookHeight,
+    autoCenter: true,
   });
 
-  // 버튼 이벤트 추가
   $("#prevBtn").click(function () {
-    $("#flipbook").turn("previous");
+    $("#book").turn("previous");
   });
 
   $("#nextBtn").click(function () {
-    $("#flipbook").turn("next");
+    $("#book").turn("next");
   });
+});
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const modalButton = document.querySelector("#someElement"); // 요소 선택
-    if (modalButton) {
-      // 요소가 존재할 때만 이벤트 추가
-      modalButton.addEventListener("click", function () {
-        console.log("클릭됨!");
-      });
-    } else {
-      console.warn("#someElement를 찾을 수 없습니다.");
-    }
+// mobile frame
+document.addEventListener("DOMContentLoaded", function () {
+  var swiper = new Swiper(".swiper-container", {
+    loop: false,
+    pagination: {
+      el: ".swiper-pagination",
+    },
+    on: {
+      slideChange: function () {
+        currentPage = swiper.realIndex + 1;
+        pageNumber.innerText = `${currentPage} / ${totalPages}`;
+      },
+    },
   });
-}); // ← **이 부분이 원래 코드에서 빠졌을 가능성이 큼!**
+});
+
+let totalPages = 62;
+let book = document.getElementById("book_mobile");
+for (let i = 0; i <= totalPages; i++) {
+  let imageElement = document.createElement("div");
+  imageElement.classList.add("swiper-slide");
+  imageElement.style.backgroundImage = `url('./images/page${i}.png')`;
+  book.appendChild(imageElement);
+}
+
+let pageNumber = document.getElementById("pageNumber");
+pageNumber.innerText = `1 / ${totalPages}`;
+let currentPage = 1;
